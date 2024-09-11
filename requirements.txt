@@ -1,5 +1,4 @@
 chinese_calendar==1.9.1
-keras==3.5.0
 loguru==0.7.2
 mysql_connector_repackaged==0.3.1
 numpy==2.1.1
