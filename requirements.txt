@@ -1,0 +1,10 @@
+chinese_calendar==1.9.1
+keras==3.5.0
+loguru==0.7.2
+mysql_connector_repackaged==0.3.1
+numpy==2.1.1
+pandas==2.2.2
+schedule==1.2.2
+scikit_learn==1.5.1
+tqdm==4.66.5
+xgboost==2.1.1
