@@ -1,6 +1,7 @@
 chinese_calendar
 loguru
-mysql_connector_repackaged
+mysql_connector
+mysql-connector-python
 numpy
 pandas
 schedule
