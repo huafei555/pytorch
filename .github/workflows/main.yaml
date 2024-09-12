@@ -26,6 +26,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: Dockerfile
+          file: Dockerfil
           push: true
           tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/pytorch_gpu_env:1.11.0-cuda11.3-cudnn8-runtime
