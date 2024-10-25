@@ -1,9 +1,0 @@
-chinese_calendar
-loguru
-mysql_connector
-mysql-connector-python
-numpy
-pandas
-schedule
-scikit_learn
-tqdm
