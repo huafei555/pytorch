@@ -1,5 +1,6 @@
 chinese_calendar
 cycler
+dtaidistance
 dtw
 einops
 fonttools
