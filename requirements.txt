@@ -27,4 +27,3 @@ scipy
 six
 timm
 tqdm
-lightgbm
