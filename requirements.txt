@@ -6,6 +6,7 @@ einops
 fonttools
 loguru
 matplotlib
+matplotlib-inline
 mysql-connector
 mysql-connector-python
 numpy
@@ -26,4 +27,4 @@ scipy
 six
 timm
 tqdm
-xgboost
+lightgbm
