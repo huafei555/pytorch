@@ -1,4 +1,4 @@
-chinese_calendar==1.9.1
+chinese_calendar==1.10.0
 cycler==0.12.1
 dtaidistance==2.3.12
 dtw==1.4.0
