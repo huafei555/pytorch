@@ -1,5 +1,5 @@
 # 基于python的基础镜像
-FROM python:3.10.14-slim
+FROM pytorch/pytorch:2.5.1-cuda11.8-cudnn9-runtime
 # 工作目录
 WORKDIR /app
 # 复制所有应用程序文件到工作目录
