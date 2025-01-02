@@ -1,0 +1,32 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  pytorch-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 读取仓库内容
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 登录阿里云acr
+        env:
+          ACR_REGISTRY: ${{ secrets.ACR_REGISTRY }}
+          ACR_USERNAME: ${{ secrets.ACR_USERNAME }}
+          ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
+        run: echo -n "$ACR_PASSWORD" | docker login $ACR_REGISTRY -u $ACR_USERNAME --password-stdin
+      - name: 构建镜像并推送
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:lstm
+          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:dl_tf

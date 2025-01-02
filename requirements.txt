@@ -1,0 +1,26 @@
+chinese_calendar
+cycler
+einops
+fonttools
+loguru
+matplotlib
+matplotlib-inline
+mysql-connector
+mysql-connector-python
+numpy==1.26.4
+openpyxl
+pandas
+pillow
+pipreqs
+pyaml
+Pygments
+PyYAML
+requests
+schedule
+scikit-learn
+scikit-optimize
+scipy
+six
+# lightgbm
+optuna
+optuna-integration
