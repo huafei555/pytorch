@@ -7,7 +7,7 @@ matplotlib
 matplotlib-inline
 mysql-connector
 mysql-connector-python
-numpy==1.26.4
+numpy<2
 openpyxl
 pandas
 pillow
