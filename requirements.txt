@@ -21,6 +21,6 @@ scikit-learn
 scikit-optimize
 scipy
 six
-# lightgbm
+lightgbm
 optuna
 optuna-integration

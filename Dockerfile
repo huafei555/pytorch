@@ -1,6 +1,6 @@
 # 基于python的基础镜像
-# FROM pytorch/pytorch:2.5.1-cuda11.8-cudnn9-runtime
-FROM tensorflow/tensorflow:2.11.0-gpu
+# FROM tensorflow/tensorflow:2.11.0-gpu
+FROM python:3.10.16
 
 # 工作目录
 WORKDIR /app
