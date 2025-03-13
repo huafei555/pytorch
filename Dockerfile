@@ -1,6 +1,7 @@
 # 基于python的基础镜像
 # FROM tensorflow/tensorflow:2.11.0-gpu
-FROM python:3.10.16
+FROM tensorflow/tensorflow:2.14.0-gpu
+# FROM python:3.10.16
 
 # 工作目录
 WORKDIR /app
@@ -16,9 +17,8 @@ RUN apt-get update && \
         git \
         libgomp1 \
         wget \
+        python3-pip \
         && rm -rf /var/lib/apt/lists/*
-#安装依赖
 
 RUN pip install --no-cache-dir --default-timeout=100 -r requirements.txt
-# 清理未使用的缓存和临时文件
-# RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
