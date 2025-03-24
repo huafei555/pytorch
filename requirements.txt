@@ -7,7 +7,8 @@ matplotlib
 matplotlib-inline
 mysql-connector
 mysql-connector-python
-numpy<2
+keras
+numpy==1.26.4
 openpyxl
 pandas
 pillow
