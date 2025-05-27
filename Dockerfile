@@ -1,8 +1,6 @@
 # 基于python的基础镜像
 # FROM tensorflow/tensorflow:2.11.0-gpu
 FROM python:3.10.16
-# FROM pytorch/pytorch:2.6.0-cuda11.8-cudnn9-devel
-# FROM tensorflow/tensorflow:2.15.0-gpu
 
 
 # 工作目录
@@ -20,7 +18,7 @@ RUN apt-get update && \
         libgomp1 \
         wget \
         python3-pip \
+        vim \
         && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --no-cache-dir --default-timeout=100 -r requirements.txt
-

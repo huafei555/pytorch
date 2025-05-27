@@ -28,10 +28,5 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:lstm
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:dl_tf
-          # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:lgbm_new
-          # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:dl_torch
-          # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:dl_torchkeras
-          # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:dl_tf_new
-          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:xgboost
+          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:lgbm_new2
