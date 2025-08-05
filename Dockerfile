@@ -23,8 +23,18 @@
 
 # RUN pip install --no-cache-dir --default-timeout=100 -r requirements.txt
 
-# GPU支持的LightGBM电价预测Docker镜像
-FROM nvidia/cuda:12.8.1-devel-ubuntu24.04
+
+# 第一阶段：准备CUDA环境
+FROM nvidia/cuda:12.8.1-devel-ubuntu24.04 as cuda-stage
+ENV CUDA_HOME=/usr/local/cuda
+ENV PATH=$CUDA_HOME/bin:$PATH  
+ENV LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+
+# 第二阶段：Python 3.10环境
+FROM python:3.10.18-slim
+
+# 从CUDA阶段复制CUDA工具包
+COPY --from=cuda-stage /usr/local/cuda /usr/local/cuda
 
 # 设置环境变量
 ENV DEBIAN_FRONTEND=noninteractive
@@ -33,11 +43,8 @@ ENV PATH=$CUDA_HOME/bin:$PATH
 ENV LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 ENV TimeZone=Asia/Shanghai
 
-# 更新包管理器并安装基础依赖
+# 安装必要的系统包
 RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-pip \
-    python3-dev \
     g++ \
     gcc \
     git \
@@ -56,12 +63,21 @@ RUN apt-get update && apt-get install -y \
     vim \
     && rm -rf /var/lib/apt/lists/*
 
-# 创建python3的软链接到python
-RUN ln -sf /usr/bin/python3 /usr/bin/python
+# 设置时区
+RUN ln -snf /usr/share/zoneinfo/$TimeZone /etc/localtime && echo $TimeZone > /etc/timezone
+
+# 配置pip使用国内镜像源
+RUN mkdir -p /root/.pip && \
+    echo '[global]' > /root/.pip/pip.conf && \
+    echo 'index-url = https://pypi.tuna.tsinghua.edu.cn/simple' >> /root/.pip/pip.conf && \
+    echo 'trusted-host = pypi.tuna.tsinghua.edu.cn' >> /root/.pip/pip.conf
+
+# 验证Python版本（应该是3.10.18）
+RUN python --version
 
 RUN pip install --no-cache-dir --default-timeout=100 -r requirements.txt
 
-# 克隆LightGBM源码并编译GPU版本
+# 编译安装LightGBM GPU版本
 RUN git clone --recursive https://github.com/microsoft/LightGBM /tmp/LightGBM && \
     cd /tmp/LightGBM && \
     cmake -B build -S . -DUSE_CUDA=ON && \
@@ -70,3 +86,9 @@ RUN git clone --recursive https://github.com/microsoft/LightGBM /tmp/LightGBM &&
     python setup.py install --precompile && \
     cd / && \
     rm -rf /tmp/LightGBM
+
+# 验证安装
+RUN python -c "import lightgbm as lgb; print('LightGBM version:', lgb.__version__)" && \
+    python -c "import numpy as np; print('NumPy version:', np.__version__)" && \
+    python -c "import pandas as pd; print('Pandas version:', pd.__version__)"
+
