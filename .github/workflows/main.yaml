@@ -30,4 +30,4 @@ jobs:
           push: true
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:dl_tf
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:lgbm_new2
-          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:lgbm3
+          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:lgbm_gpu

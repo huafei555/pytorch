@@ -3,12 +3,9 @@ cycler
 einops
 fonttools
 loguru
-matplotlib
-matplotlib-inline
 mysql-connector
 mysql-connector-python
-keras
-numpy==1.26.4
+numpy
 openpyxl
 pandas
 pillow
@@ -22,7 +19,5 @@ scikit-learn
 scikit-optimize
 scipy
 six
-lightgbm
-xgboost
 optuna
 optuna-integration
