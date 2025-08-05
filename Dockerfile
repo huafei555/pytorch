@@ -59,8 +59,15 @@ RUN apt-get update && apt-get install -y \
 # 创建python3的软链接到python
 RUN ln -sf /usr/bin/python3 /usr/bin/python
 
-# 升级pip并安装Python基础包
-RUN python -m pip install --upgrade pip setuptools wheel -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn
+# 配置pip使用国内镜像源（全局配置）
+RUN mkdir -p /root/.pip && \
+    echo '[global]' > /root/.pip/pip.conf && \
+    echo 'index-url = https://pypi.tuna.tsinghua.edu.cn/simple' >> /root/.pip/pip.conf && \
+    echo 'trusted-host = pypi.tuna.tsinghua.edu.cn' >> /root/.pip/pip.conf && \
+    echo 'timeout = 120' >> /root/.pip/pip.conf
+
+# 测试pip是否正常工作
+RUN pip --version
 
 RUN pip install --no-cache-dir --default-timeout=100 -r requirements.txt
 
