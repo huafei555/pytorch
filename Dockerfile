@@ -75,12 +75,6 @@ RUN cmake --version
 # 设置时区
 RUN ln -snf /usr/share/zoneinfo/$TimeZone /etc/localtime && echo $TimeZone > /etc/timezone
 
-# 配置pip使用国内镜像源
-# RUN mkdir -p /root/.pip && \
-#     echo '[global]' > /root/.pip/pip.conf && \
-#     echo 'index-url = https://pypi.tuna.tsinghua.edu.cn/simple' >> /root/.pip/pip.conf && \
-#     echo 'trusted-host = pypi.tuna.tsinghua.edu.cn' >> /root/.pip/pip.conf
-
 # 更新pip
 RUN pip install --upgrade pip
 
@@ -115,20 +109,11 @@ RUN pip install --no-cache-dir \
     scikit-optimize \
     six
 
-# 编译安装LightGBM GPU版本
-RUN git clone --recursive https://github.com/microsoft/LightGBM /tmp/LightGBM && \
-    cd /tmp/LightGBM && \
-    export CUDAFLAGS="-diag-suppress 128,20014 -Wno-deprecated-gpu-targets" && \
-    export NVCCFLAGS="-diag-suppress 128,20014 -Wno-deprecated-gpu-targets" && \
-    cmake -B build -S . -DUSE_CUDA=ON \
-        -DCMAKE_CUDA_FLAGS="-diag-suppress 128,20014 --disable-warnings -Wno-deprecated-gpu-targets" \
-        -DCMAKE_CXX_FLAGS="-w" \
-        -DCMAKE_BUILD_TYPE=Release && \
-    cmake --build build -j$(nproc) -- --quiet && \
-    cmake --install build && \
-    CMAKE_BUILD_PARALLEL_LEVEL=$(nproc) python -m pip install . --no-cache-dir -v && \
-    cd / && \
-    rm -rf /tmp/LightGBM
+# 官方标准方法：安装LightGBM GPU版本（CUDA）
+# 参考：https://github.com/microsoft/lightgbm/blob/master/python-package/README.rst
+RUN pip install lightgbm --no-binary lightgbm \
+    --config-settings=cmake.define.USE_CUDA=ON \
+    --no-cache-dir -v
 
 # 验证安装
 RUN python -c "import lightgbm as lgb; print('LightGBM version:', lgb.__version__)" && \
