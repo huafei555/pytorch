@@ -34,11 +34,14 @@ FROM python:3.10.18-slim
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TimeZone=Asia/Shanghai
 
-# 安装必要的系统包
+# 安装OpenCL运行时环境和必要依赖
 RUN apt-get update && apt-get install -y \
     git \
     vim \
     libgomp1 \
+    ocl-icd-opencl-dev \
+    opencl-headers \
+    clinfo \
     && rm -rf /var/lib/apt/lists/*
 
 # 更新pip

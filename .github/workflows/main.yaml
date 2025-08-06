@@ -29,4 +29,4 @@ jobs:
           file: Dockerfile
           push: true
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:dl_tf
-          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:lgbm_gpu2
+          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:lgbm_gpu3
