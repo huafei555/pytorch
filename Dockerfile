@@ -43,6 +43,11 @@ ENV PATH=$CUDA_HOME/bin:$PATH
 ENV LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 ENV TimeZone=Asia/Shanghai
 
+# 工作目录
+WORKDIR /app
+# 复制所有应用程序文件到工作目录
+COPY . .
+
 # 安装必要的系统包
 RUN apt-get update && apt-get install -y \
     g++ \
