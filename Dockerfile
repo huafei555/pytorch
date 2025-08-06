@@ -25,7 +25,7 @@
 
 
 # 第一阶段：准备CUDA环境
-FROM nvidia/cuda:12.8.1-devel-ubuntu24.04 as cuda-stage
+FROM nvidia/cuda:12.8.1-devel-ubuntu24.04 AS cuda-stage
 ENV CUDA_HOME=/usr/local/cuda
 ENV PATH=$CUDA_HOME/bin:$PATH  
 ENV LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
@@ -40,7 +40,7 @@ COPY --from=cuda-stage /usr/local/cuda /usr/local/cuda
 ENV DEBIAN_FRONTEND=noninteractive
 ENV CUDA_HOME=/usr/local/cuda
 ENV PATH=$CUDA_HOME/bin:$PATH
-ENV LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH=$CUDA_HOME/lib64:${LD_LIBRARY_PATH:-}
 ENV TimeZone=Asia/Shanghai
 
 # 工作目录
@@ -53,7 +53,6 @@ RUN apt-get update && apt-get install -y \
     g++ \
     gcc \
     git \
-    cmake \
     build-essential \
     libboost-dev \
     libboost-system-dev \
@@ -68,6 +67,13 @@ RUN apt-get update && apt-get install -y \
     vim \
     && rm -rf /var/lib/apt/lists/*
 
+# 安装最新版本的CMake (3.28+)
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.28.3/cmake-3.28.3-linux-x86_64.sh && \
+    chmod +x cmake-3.28.3-linux-x86_64.sh && \
+    ./cmake-3.28.3-linux-x86_64.sh --skip-license --prefix=/usr/local && \
+    rm cmake-3.28.3-linux-x86_64.sh && \
+    ln -sf /usr/local/bin/cmake /usr/bin/cmake
+
 # 设置时区
 RUN ln -snf /usr/share/zoneinfo/$TimeZone /etc/localtime && echo $TimeZone > /etc/timezone
 
@@ -77,10 +83,15 @@ RUN mkdir -p /root/.pip && \
     echo 'index-url = https://pypi.tuna.tsinghua.edu.cn/simple' >> /root/.pip/pip.conf && \
     echo 'trusted-host = pypi.tuna.tsinghua.edu.cn' >> /root/.pip/pip.conf
 
-# 验证Python版本（应该是3.10.18）
+RUN pip install --no-cache-dir --default-timeout=100 -r requirements.txt
+
+RUN pip install --upgrade pip
+
+# 验证Python版本
 RUN python --version
 
-RUN pip install --no-cache-dir --default-timeout=100 -r requirements.txt
+# 验证CMake版本
+RUN cmake --version
 
 # 编译安装LightGBM GPU版本
 RUN git clone --recursive https://github.com/microsoft/LightGBM /tmp/LightGBM && \
