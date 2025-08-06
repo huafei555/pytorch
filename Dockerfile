@@ -40,13 +40,8 @@ COPY --from=cuda-stage /usr/local/cuda /usr/local/cuda
 ENV DEBIAN_FRONTEND=noninteractive
 ENV CUDA_HOME=/usr/local/cuda
 ENV PATH=$CUDA_HOME/bin:$PATH
-ENV LD_LIBRARY_PATH=$CUDA_HOME/lib64:${LD_LIBRARY_PATH:-}
+ENV LD_LIBRARY_PATH=$CUDA_HOME/lib64
 ENV TimeZone=Asia/Shanghai
-
-# 工作目录
-WORKDIR /app
-# 复制所有应用程序文件到工作目录
-COPY . .
 
 # 安装必要的系统包
 RUN apt-get update && apt-get install -y \
@@ -83,9 +78,38 @@ RUN mkdir -p /root/.pip && \
     echo 'index-url = https://pypi.tuna.tsinghua.edu.cn/simple' >> /root/.pip/pip.conf && \
     echo 'trusted-host = pypi.tuna.tsinghua.edu.cn' >> /root/.pip/pip.conf
 
-RUN pip install --no-cache-dir --default-timeout=100 -r requirements.txt
-
 RUN pip install --upgrade pip
+
+# 安装Python包
+RUN pip install --no-cache-dir \
+    numpy \
+    scipy \
+    pandas \
+    scikit-learn \
+    seaborn \
+    optuna \
+    optuna-integration \
+    loguru \
+    schedule \
+    configparser \
+    sqlalchemy \
+    pymysql \
+    psycopg2-binary \
+    chinese_calendar \
+    cycler \
+    einops \
+    fonttools \
+    mysql-connector \
+    mysql-connector-python \
+    openpyxl \
+    pillow \
+    pipreqs \
+    pyaml \
+    Pygments \
+    PyYAML \
+    requests \
+    scikit-optimize \
+    six
 
 # 验证Python版本
 RUN python --version
@@ -96,10 +120,16 @@ RUN cmake --version
 # 编译安装LightGBM GPU版本
 RUN git clone --recursive https://github.com/microsoft/LightGBM /tmp/LightGBM && \
     cd /tmp/LightGBM && \
-    cmake -B build -S . -DUSE_CUDA=ON && \
-    cmake --build build -j$(nproc) && \
+    export CUDAFLAGS="-diag-suppress 128,20014" && \
+    export NVCCFLAGS="-diag-suppress 128,20014" && \
+    cmake -B build -S . -DUSE_CUDA=ON \
+        -DCMAKE_CUDA_FLAGS="-diag-suppress 128,20014 --disable-warnings" \
+        -DCMAKE_CXX_FLAGS="-w" \
+        -DCMAKE_BUILD_TYPE=Release && \
+    cmake --build build -j$(nproc) -- --quiet && \
+    cmake --install build && \
     cd python-package && \
-    python setup.py install --precompile && \
+    pip install . --no-cache-dir && \
     cd / && \
     rm -rf /tmp/LightGBM
 
