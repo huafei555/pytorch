@@ -115,7 +115,7 @@ RUN pip install --no-cache-dir \
     scikit-optimize \
     six
 
-# 编译安装LightGBM GPU版本（抑制所有编译警告）
+# 编译安装LightGBM GPU版本（修复LICENSE问题）
 RUN git clone --recursive https://github.com/microsoft/LightGBM /tmp/LightGBM && \
     cd /tmp/LightGBM && \
     export CUDAFLAGS="-diag-suppress 128,20014 -Wno-deprecated-gpu-targets" && \
@@ -126,8 +126,9 @@ RUN git clone --recursive https://github.com/microsoft/LightGBM /tmp/LightGBM &&
         -DCMAKE_BUILD_TYPE=Release && \
     cmake --build build -j$(nproc) -- --quiet && \
     cmake --install build && \
+    cp LICENSE python-package/ && \
     cd python-package && \
-    pip install . --no-cache-dir && \
+    pip install . --no-cache-dir --config-settings=editable_mode=compat && \
     cd / && \
     rm -rf /tmp/LightGBM
 
