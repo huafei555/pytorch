@@ -6,7 +6,6 @@ loguru
 mysql-connector
 mysql-connector-python
 numpy
-openpyxl
 pandas
 pillow
 pipreqs
@@ -19,5 +18,7 @@ scikit-learn
 scikit-optimize
 scipy
 six
+lightgbm
+xgboost
 optuna
 optuna-integration
