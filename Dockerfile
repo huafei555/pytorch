@@ -1,6 +1,8 @@
 # 基于python的基础镜像
 # FROM tensorflow/tensorflow:2.11.0-gpu
-FROM python:3.10.18
+# FROM python:3.10.18
+FROM pytorch/pytorch:2.8.0-cuda12.8-cudnn9-runtime
+
 # 工作目录
 WORKDIR /app
 # 复制所有应用程序文件到工作目录
