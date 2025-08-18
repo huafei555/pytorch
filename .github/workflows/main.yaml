@@ -28,6 +28,4 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:dl_tf
-          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/ml
-          # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/python:pytorch_2.8.0
+          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/ml2
