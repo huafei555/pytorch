@@ -23,5 +23,3 @@ lightgbm
 xgboost
 optuna
 optuna-integration
-imblearn
-collections
