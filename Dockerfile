@@ -18,8 +18,6 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 # 更新pip
 RUN pip install --upgrade pip
-RUN pip install imblearn
-RUN pip install collections
 # 安装依赖
 RUN pip install --no-cache-dir --default-timeout=100 -r requirements.txt
 # 验证Python环境
