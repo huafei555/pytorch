@@ -4,21 +4,24 @@ FROM python:3.10.18
 # 工作目录
 WORKDIR /app
 # 复制所有应用程序文件到工作目录
-COPY . .
+COPY . /app/
 # 安装必要的系统依赖
-RUN apt-get update && apt-get install -y \
+
+RUN apk update && \
+    apk add --no-cache git build-base gcc musl-dev libffi-dev && \
+    pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+RUN apt-get update && \
+    apk add --no-cache git build-base gcc musl-dev libffi-dev && \
     build-essential \
     cmake \
     g++ \
-    gcc \
-    git \
     libgomp1 \
     wget \
     vim \
-    && rm -rf /var/lib/apt/lists/*
-# 更新pip
-RUN pip install --upgrade pip
-# 安装依赖
-RUN pip install --no-cache-dir --default-timeout=100 -r requirements.txt
-# 验证Python环境
-RUN python --version && pip --version
+    pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# 显示 Prefect 和 git 的版本
+CMD ["sh", "-c", "prefect --version && git --version"]

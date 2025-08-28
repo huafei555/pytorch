@@ -28,4 +28,4 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/bys
+          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/prefect:ml_algorithm
