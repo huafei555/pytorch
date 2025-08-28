@@ -7,19 +7,18 @@ WORKDIR /app
 COPY . /app/
 # 安装必要的系统依赖
 
-RUN apk update && \
-    apk add --no-cache git build-base gcc musl-dev libffi-dev && \
-    pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
-
 RUN apt-get update && \
-    apk add --no-cache git build-base gcc musl-dev libffi-dev && \
-    build-essential \
-    cmake \
-    g++ \
-    libgomp1 \
-    wget \
-    vim \
+    apt-get install -y --no-install-recommends \
+        git \
+        build-essential \
+        cmake \
+        g++ \
+        libgomp1 \
+        wget \
+        vim \
+        libffi-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
     pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
