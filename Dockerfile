@@ -27,6 +27,11 @@
 
 FROM registry.cn-beijing.aliyuncs.com/dkzx_test/prefect:3.4.14
 
+# 工作目录
+WORKDIR /app
+# 复制所有应用程序文件到工作目录
+COPY . /app/
+
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
