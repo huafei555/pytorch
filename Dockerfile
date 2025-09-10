@@ -25,6 +25,7 @@
 # # 显示 Prefect 和 git 的版本
 # CMD ["sh", "-c", "prefect --version && git --version"]
 
+
 FROM registry.cn-beijing.aliyuncs.com/dkzx_test/prefect:3.4.14
 
 # 工作目录
@@ -35,18 +36,16 @@ COPY . /app/
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN apk update && \
+    apk add --no-cache \
         git \
-        build-essential \
+        build-base \
         cmake \
         g++ \
-        libgomp1 \
+        libgomp \
         wget \
         vim \
         libffi-dev && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
     pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
