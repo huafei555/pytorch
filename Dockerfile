@@ -49,6 +49,7 @@ RUN apk update && \
         libffi-dev \
         linux-headers && \
     pip install --upgrade pip && \
+    pip install nvidia-pyindex && \
     pip install --no-cache-dir -r requirements.txt
 
 # RUN pip install git+https://shengzhiwei:Shengzw0387.@gitea.ajiot.net/AEO/ods_trading_platform_common.git
