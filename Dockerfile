@@ -39,21 +39,11 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apk update && \
     apk add --no-cache \
         git \
-        build-base \
-        cmake \
-        g++ \
-        libgomp \
-        wget \
         vim \
-        libffi-dev && \
+        nodejs \
+        npm && \
     pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
-
-# 更新仓库索引并安装 Node.js 和 npm
-RUN apk update && \
-    apk add --no-cache \
-    nodejs \
-    npm
 
 # RUN pip install git+https://shengzhiwei:Shengzw0387.@gitea.ajiot.net/AEO/ods_trading_platform_common.git
 RUN echo "a"
