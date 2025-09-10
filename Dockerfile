@@ -41,7 +41,13 @@ RUN apk update && \
         git \
         vim \
         nodejs \
-        npm && \
+        npm \
+        build-base \
+        cmake \
+        g++ \
+        libgomp \
+        libffi-dev \
+        linux-headers && \
     pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
