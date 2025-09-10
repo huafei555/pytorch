@@ -19,7 +19,7 @@ optuna
 optuna-integration
 imblearn
 polars
-prefect==3.3.6
+prefect==3.4.14
 setuptools==72.1.0
 beautifulsoup4==4.12.3
 loguru==0.7.1
