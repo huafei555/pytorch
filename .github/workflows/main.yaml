@@ -30,4 +30,4 @@ jobs:
           push: true
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm_base_image:prefect_3.4.14
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/prefect-work-pool:algorithm
-          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/sn_test
+          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/sn_test:tf_2.20.0-gpu
