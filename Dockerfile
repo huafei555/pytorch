@@ -1,5 +1,6 @@
 # 基于python的基础镜像
-FROM python:3.10.18
+# FROM python:3.10.18
+FROM tensorflow:2.20.0-gpu
 
 RUN apt update && \
     apt install -y --no-install-recommends \
