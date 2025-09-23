@@ -1,4 +1,3 @@
-chinese_calendar
 cycler
 einops
 fonttools
@@ -11,16 +10,9 @@ PyYAML
 pymysql
 scikit-learn
 scikit-optimize
-scikit-fuzzy
 scipy
 six
-lightgbm
-xgboost
-optuna
-optuna-integration
-keras
 imblearn
-polars
 prefect==3.4.14
 setuptools
 beautifulsoup4
