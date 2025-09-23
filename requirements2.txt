@@ -14,6 +14,7 @@ scipy
 six
 imblearn
 prefect==3.4.14
+prefect-docker==0.4.8
 setuptools
 beautifulsoup4
 loguru
