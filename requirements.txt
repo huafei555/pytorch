@@ -18,7 +18,6 @@ lightgbm
 xgboost
 optuna
 optuna-integration
-keras
 imblearn
 polars
 prefect==3.4.14
