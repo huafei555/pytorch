@@ -8,4 +8,6 @@ ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN pip install --upgrade pip && \
+    pip install torch torchvision && \
+    pip install tabpfn && \
     pip install --no-cache-dir -r requirements.txt

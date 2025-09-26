@@ -14,10 +14,6 @@ scikit-optimize
 scikit-fuzzy
 scipy
 six
-lightgbm
-xgboost
-optuna
-optuna-integration
 imblearn
 polars
 prefect==3.4.14
