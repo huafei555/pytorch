@@ -26,10 +26,10 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: Dockerfile.3
+          file: Dockerfile.2
           push: true
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm_base_image:prefect_3.4.14
-          # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/prefect-work-pool:algorithm_3.0
+          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/prefect-work-pool:algorithm_4.0
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:lgbm_xgb
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:test
-          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:torch_tabpfn
+          # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:torch_tabpfn
