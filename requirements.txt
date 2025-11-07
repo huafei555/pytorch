@@ -34,3 +34,5 @@ lxml
 pyexecjs
 lightgbm
 xgboost
+optuna
+optuna-integration
