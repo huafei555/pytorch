@@ -7,7 +7,8 @@ ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements_algorithm_workpool.txt
+    pip install git+https://shengzhiwei:Shengzw0387.@gitea.ajiot.net/AEO/ods_trading_platform_common.git && \
+    pip install --no-cache-dir -r requirements_algorithm_evaluation_workpool.txt
 
 ENV PREFECT_API_URL="https://admin:ajiotadmin@prefect.ajiot.net/api"
 RUN pip install pyexecjs==1.5.1
