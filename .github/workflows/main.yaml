@@ -26,9 +26,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: Dockerfile.algorithm_evaluation
+          file: Dockerfile.algorithm_image_tree
           push: true
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm_base_image:prefect_3.4.14
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/prefect-work-pool:algorithm_4.0
-          # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:test
-          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:algorithm_evaluation
+          # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:algorithm_evaluation
+          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:algorithm_image_tree
