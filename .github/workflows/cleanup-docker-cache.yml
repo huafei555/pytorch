@@ -1,0 +1,28 @@
+name: Daily Docker Cache Cleanup
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天 UTC 时间 00:00 自动运行（即北京时间 08:00）
+  workflow_dispatch:     # 允许在 GitHub 界面手动触发
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check disk usage before cleanup
+        run: |
+          echo "Disk usage before cleanup:"
+          df -h /
+          echo ""
+          echo "Docker disk usage before cleanup:"
+          docker system df || true
+      - name: Clean up Docker build cache
+        run: |
+          docker builder prune -f --filter "until=24h"
+      - name: Check disk usage after cleanup
+        run: |
+          echo "Disk usage after cleanup:"
+          df -h /
+          echo ""
+          echo "Docker disk usage after cleanup:"
+          docker system df || true
