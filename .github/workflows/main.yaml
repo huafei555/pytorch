@@ -12,7 +12,7 @@ jobs:
       - name: 清理磁盘空间
         run: |
           # 删除 apt 缓存
-          sudo apt clean
+          sudo apt-get clean
           # 删除 Runner 缓存的旧日志(_diag 目录下的历史日志)
           rm -rf /home/runner/actions-runner/cached/_diag/*.log
       - name: 清理Docker构建缓存
