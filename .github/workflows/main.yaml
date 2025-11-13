@@ -11,12 +11,27 @@ jobs:
     steps:
       - name: 清理磁盘空间
         run: |
+          echo "清理前磁盘空间："
+          df -h
+          # 删除不需要的软件和文件以释放空间
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          # 删除Docker镜像
+          docker rmi $(docker images -q) -f || true
           # 删除 apt 缓存
           sudo apt-get clean
-          # 删除 Runner 缓存的旧日志(_diag 目录下的历史日志)
-          rm -rf /home/runner/actions-runner/cached/_diag/*.log
+          sudo rm -rf /var/lib/apt/lists/*
+          # 删除 Runner 缓存的旧日志
+          rm -rf /home/runner/actions-runner/cached/_diag/*.log || true
+          echo "清理后磁盘空间："
+          df -h
       - name: 清理Docker构建缓存
-        run: docker builder prune -f --filter "until=24h"
+        run: |
+          docker builder prune -af
+          docker system prune -af --volumes
       - name: 读取仓库内容
         uses: actions/checkout@v4
       - name: Set up Docker Buildx
@@ -37,5 +52,11 @@ jobs:
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/prefect-work-pool:algorithm_4.0
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:algorithm_evaluation_workpool
           tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:general_image
-      
-      
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: 构建后清理
+        if: always()
+        run: |
+          docker system prune -af --volumes
+          echo "最终磁盘空间："
+          df -h

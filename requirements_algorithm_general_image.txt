@@ -16,8 +16,6 @@ scipy
 six
 imblearn
 polars
-prefect==3.4.14
-prefect-docker
 setuptools
 beautifulsoup4
 loguru
