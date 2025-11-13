@@ -9,6 +9,8 @@ jobs:
   pytorch-build:
     runs-on: ubuntu-latest
     steps:
+      - name: 清理Docker构建缓存
+        run: docker builder prune -f --filter "until=24h"
       - name: 读取仓库内容
         uses: actions/checkout@v4
       - name: Set up Docker Buildx
@@ -29,8 +31,5 @@ jobs:
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/prefect-work-pool:algorithm_4.0
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:algorithm_evaluation_workpool
           tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:general_image
-      # 清理 Docker 构建缓存
-      - name: Cleanup Docker Build Cache
-        run: |
-          # 清理所有未使用的构建缓存
-          docker builder prune -f --filter "until=24h"
+      
+      
