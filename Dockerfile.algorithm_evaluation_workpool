@@ -1,17 +1,19 @@
 FROM registry.cn-beijing.aliyuncs.com/dkzx_test/algorithm_base_image:prefect_3.4.14
 
 WORKDIR /app
-COPY . /app/
+COPY requirements_algorithm_evaluation_workpool.txt /app/
 
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN pip install --upgrade pip && \
-    pip install git+https://shengzhiwei:Shengzw0387.@gitea.ajiot.net/AEO/ods_trading_platform_common.git && \
-    pip install --no-cache-dir -r requirements_algorithm_evaluation_workpool.txt
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    pip install --no-cache-dir --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple && \
+    pip install --no-cache-dir git+https://shengzhiwei:Shengzw0387.@gitea.ajiot.net/AEO/ods_trading_platform_common.git && \
+    pip install --no-cache-dir -r requirements_algorithm_evaluation_workpool.txt && \
+    rm -rf /root/.cache/pip /tmp/*
 
 ENV PREFECT_API_URL="https://admin:ajiotadmin@prefect.ajiot.net/api"
-RUN pip install pyexecjs==1.5.1
+RUN pip install --no-cache-dir pyexecjs==1.5.1
 
 ENV POOL_NAME=""
 
