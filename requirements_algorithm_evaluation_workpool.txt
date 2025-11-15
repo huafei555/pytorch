@@ -28,4 +28,3 @@ redis
 requests
 schedule
 lxml
-pyexecjs
