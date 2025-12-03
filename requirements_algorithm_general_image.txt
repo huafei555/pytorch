@@ -1,3 +1,4 @@
+numpy==1.24.4
 chinese_calendar
 cycler
 einops
@@ -14,14 +15,13 @@ scikit-optimize
 scikit-fuzzy
 scipy
 six
-imblearn
 polars
 setuptools
 beautifulsoup4
 loguru
 mysql-connector-python
 PyMySQL
-numpy
+imblearn
 openpyxl
 pandas
 python_dateutil

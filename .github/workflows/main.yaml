@@ -50,8 +50,9 @@ jobs:
           push: true
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm_base_image:prefect_3.4.14
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/prefect-work-pool:algorithm_4.0
-          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:evaluation_workpool_2.0
+          # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:evaluation_workpool_2.0
           # tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:evaluation_container
+          tags: ${{ secrets.ACR_REGISTRY }}/dkzx_test/algorithm:general_image_2.0
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: 构建后清理

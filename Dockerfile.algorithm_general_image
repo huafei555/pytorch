@@ -19,4 +19,5 @@ RUN apt update && \
     pip install --no-cache-dir torch torchvision && \
     pip install --no-cache-dir tabpfn && \
     pip install --no-cache-dir -r requirements_algorithm_general_image.txt && \
+    pip install minepy --no-build-isolation && \
     rm -rf /root/.cache/pip /tmp/*
