@@ -19,5 +19,5 @@ RUN apt update && \
     pip install prefect==3.4.14 -i https://pypi.tuna.tsinghua.edu.cn/simple && \
     # pip install --no-cache-dir torch torchvision && \
     # pip install --no-cache-dir tabpfn && \
-    # pip install --no-cache-dir -r requirements_algorithm_general_image.txt && \
+    pip install --no-cache-dir -r requirements_algorithm_general_image.txt && \
     rm -rf /root/.cache/pip /tmp/*
