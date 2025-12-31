@@ -16,7 +16,7 @@ RUN apt update && \
     apt clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     pip install --no-cache-dir --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple && \
-    pip install --no-cache-dir torch torchvision && \
-    pip install --no-cache-dir tabpfn && \
-    pip install --no-cache-dir -r requirements_algorithm_general_image.txt && \
+    # pip install --no-cache-dir torch torchvision && \
+    # pip install --no-cache-dir tabpfn && \
+    # pip install --no-cache-dir -r requirements_algorithm_general_image.txt && \
     rm -rf /root/.cache/pip /tmp/*
