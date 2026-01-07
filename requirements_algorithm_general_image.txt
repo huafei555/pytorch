@@ -10,6 +10,7 @@ pyaml
 Pygments
 PyYAML
 pymysql
+pyarrow
 scikit-learn
 scikit-optimize
 scikit-fuzzy
