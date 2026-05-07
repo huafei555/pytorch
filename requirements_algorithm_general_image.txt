@@ -4,6 +4,7 @@ cycler
 einops
 fonttools
 mysql-connector
+dbutils
 pillow
 pipreqs
 pyaml
